@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -23,21 +24,21 @@ public class Order extends BaseEntity<Long> {
     private BigDecimal totalPrice;
 
     @Column(name = "deleted", nullable = false)
-    private boolean deleted;
+    private boolean deleted = false;
 
     @OneToMany(
             mappedBy = "order",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private final List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(Long userId, String status, BigDecimal totalPrice, boolean deleted, List<OrderItem> orderItems) {
+    public Order(Long userId, String status, BigDecimal totalPrice, List<OrderItem> orderItems) {
         this.userId = userId;
         this.status = status;
         this.totalPrice = totalPrice;
-        this.deleted = deleted;
-        this.orderItems = orderItems;
+
+        orderItems.forEach(this::addOrderItem);
     }
 
     public Order() {
@@ -46,6 +47,11 @@ public class Order extends BaseEntity<Long> {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
+        orderItem.setOrder(null);
     }
 
     public Long getUserId() {
@@ -81,10 +87,6 @@ public class Order extends BaseEntity<Long> {
     }
 
     public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+        return Collections.unmodifiableList(orderItems);
     }
 }

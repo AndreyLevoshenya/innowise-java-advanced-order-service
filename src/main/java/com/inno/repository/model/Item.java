@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -19,12 +20,11 @@ public class Item extends BaseEntity<Long> {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "item")
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private final List<OrderItem> orderItems = new ArrayList<>();
 
-    public Item(String name, BigDecimal price, List<OrderItem> orderItems) {
+    public Item(String name, BigDecimal price) {
         this.name = name;
         this.price = price;
-        this.orderItems = orderItems;
     }
 
     public Item() {
@@ -33,6 +33,11 @@ public class Item extends BaseEntity<Long> {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setItem(this);
+    }
+
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
+        orderItem.setItem(null);
     }
 
     public String getName() {
@@ -52,10 +57,6 @@ public class Item extends BaseEntity<Long> {
     }
 
     public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+        return Collections.unmodifiableList(orderItems);
     }
 }
