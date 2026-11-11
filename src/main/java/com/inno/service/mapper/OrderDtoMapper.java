@@ -23,7 +23,10 @@ public interface OrderDtoMapper {
     @Mapping(target = "userId", source = "userId")
     Order dtoToModel(OrderDtoRequest dtoRequest);
 
-    @Mapping(target = "orderItems", source = "order.orderItems")
+    @Mapping(target = "id", source = "model.id")
+    @Mapping(target = "createdAt", source = "model.createdAt")
+    @Mapping(target = "updatedAt", source = "model.updatedAt")
+    @Mapping(target = "orderItems", source = "model.orderItems")
     @Mapping(target = "user", source = "user")
     OrderDtoResponse modelToDto(Order model, UserDtoResponse user);
 }

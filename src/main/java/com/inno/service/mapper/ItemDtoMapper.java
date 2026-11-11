@@ -13,5 +13,6 @@ public interface ItemDtoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "orderItems", ignore = true)
     Item dtoToModel(ItemDtoRequest dtoRequest);
 }
