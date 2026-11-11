@@ -22,6 +22,7 @@ dependencies {
     implementation libs.springboot.starter.web
     implementation libs.mapstruct
     implementation libs.spring.cloud.starter.circuitbreaker.resilience4j
+    implementation libs.springboot.starter.oauth2.resource.server
 
     runtimeOnly libs.postgresql
 
