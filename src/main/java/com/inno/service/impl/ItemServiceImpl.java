@@ -3,7 +3,7 @@ package com.inno.service.impl;
 import com.inno.filter.EntitySpecification;
 import com.inno.repository.ItemRepository;
 import com.inno.repository.model.Item;
-import com.inno.service.BaseService;
+import com.inno.service.ItemService;
 import com.inno.service.dto.ItemDtoRequest;
 import com.inno.service.dto.ItemDtoResponse;
 import com.inno.service.dto.SearchingRequest;
@@ -23,7 +23,7 @@ import java.util.List;
 import static com.inno.service.exception.ExceptionErrorCodes.ITEM_DOES_NOT_EXIST;
 
 @Service
-public class ItemServiceImpl implements BaseService<ItemDtoRequest, ItemDtoResponse, Long> {
+public class ItemServiceImpl implements ItemService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ItemServiceImpl.class);
     private static final List<String> fieldsToSearch = List.of("name");
     private final ItemRepository itemRepository;

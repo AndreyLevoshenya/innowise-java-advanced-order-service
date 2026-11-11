@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface OrderService extends BaseService<OrderDtoRequest, OrderDtoResponse, Long> {
-    Page<OrderDtoResponse> findAllByUserIdAndDeletedFalse(
-            Long userId,
-            Pageable pageable
-    );
+
+    Page<OrderDtoResponse> findAllByUserIdAndDeletedFalse(Long userId, Pageable pageable);
+
+    boolean isOwner(Long orderId, Long userId);
 }

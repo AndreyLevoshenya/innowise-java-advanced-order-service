@@ -125,6 +125,14 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAllByUserIdAndDeletedFalse(userId, pageable).map(this::toDto);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public boolean isOwner(Long orderId, Long userId) {
+        return orderRepository.existsByIdAndUserIdAndDeletedFalse(
+                orderId, userId
+        );
+    }
+
     private Order toModel(OrderDtoRequest request) {
         Order order = orderDtoMapper.dtoToModel(request);
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import static com.inno.service.exception.ExceptionErrorCodes.USER_SERVICE_UNAVAILABLE_EXCEPTION;
+
 @Service
 public class UserServiceClient {
 
@@ -44,7 +46,7 @@ public class UserServiceClient {
             Throwable exception
     ) {
         throw new UserServiceUnavailableException(
-                "Unable to retrieve user information",
+                USER_SERVICE_UNAVAILABLE_EXCEPTION.getErrorMessage(),
                 exception
         );
     }
@@ -54,7 +56,7 @@ public class UserServiceClient {
             Throwable exception
     ) {
         throw new UserServiceUnavailableException(
-                "Unable to retrieve user information",
+                USER_SERVICE_UNAVAILABLE_EXCEPTION.getErrorMessage(),
                 exception
         );
     }

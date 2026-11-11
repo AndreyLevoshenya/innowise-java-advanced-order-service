@@ -12,4 +12,6 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
             Long userId,
             Pageable pageable
     );
+
+    boolean existsByIdAndUserIdAndDeletedFalse(Long id, Long userId);
 }
