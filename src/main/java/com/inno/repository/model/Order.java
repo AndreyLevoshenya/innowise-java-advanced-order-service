@@ -31,7 +31,7 @@ public class Order extends BaseEntity<Long> {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private final List<OrderItem> orderItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public Order(Long userId, String status, BigDecimal totalPrice, List<OrderItem> orderItems) {
         this.userId = userId;
@@ -45,13 +45,17 @@ public class Order extends BaseEntity<Long> {
     }
 
     public void addOrderItem(OrderItem orderItem) {
+        if (orderItems.contains(orderItem)) {
+            return;
+        }
+
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
 
-    public void removeOrderItem(OrderItem orderItem) {
-        orderItems.remove(orderItem);
-        orderItem.setOrder(null);
+    public void clearOrderItems() {
+        orderItems.forEach(item -> item.setOrder(null));
+        orderItems.clear();
     }
 
     public Long getUserId() {

@@ -21,8 +21,7 @@ public class OrderItem extends BaseEntity<Long> {
     @Column(nullable = false)
     private Integer quantity;
 
-    public OrderItem(Order order, Item item, Integer quantity) {
-        this.order = order;
+    public OrderItem(Item item, Integer quantity) {
         this.item = item;
         this.quantity = quantity;
     }
@@ -34,7 +33,7 @@ public class OrderItem extends BaseEntity<Long> {
         return order;
     }
 
-    public void setOrder(Order order) {
+    void setOrder(Order order) {
         this.order = order;
     }
 
@@ -42,7 +41,7 @@ public class OrderItem extends BaseEntity<Long> {
         return item;
     }
 
-    public void setItem(Item item) {
+    void setItem(Item item) {
         this.item = item;
     }
 

@@ -20,7 +20,7 @@ public class Item extends BaseEntity<Long> {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "item")
-    private final List<OrderItem> orderItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     public Item(String name, BigDecimal price) {
         this.name = name;
@@ -28,16 +28,6 @@ public class Item extends BaseEntity<Long> {
     }
 
     public Item() {
-    }
-
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setItem(this);
-    }
-
-    public void removeOrderItem(OrderItem orderItem) {
-        orderItems.remove(orderItem);
-        orderItem.setItem(null);
     }
 
     public String getName() {
