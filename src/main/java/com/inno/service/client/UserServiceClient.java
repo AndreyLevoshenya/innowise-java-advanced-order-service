@@ -34,7 +34,7 @@ public class UserServiceClient {
     )
     public UserDtoResponse getUserById(Long id) {
         return userServiceRestClient.get()
-                .uri("/api/v1/users/id", id)
+                .uri("/api/v1/users/{id}", id)
                 .retrieve()
                 .body(UserDtoResponse.class);
     }
