@@ -31,7 +31,7 @@ services:
       JWT_PUBLIC_KEY_PATH: ${JWT_PUBLIC_KEY_PATH}
       USER_SERVICE_URL: ${USER_SERVICE_URL}
     ports:
-      - "${APP_PORT:-8080}:8080"
+      - "${ORDER_SERVICE_PORT:-8080}:8080"
     depends_on:
       postgres:
         condition: service_healthy
