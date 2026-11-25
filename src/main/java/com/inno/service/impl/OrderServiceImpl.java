@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import static com.inno.service.exception.ExceptionErrorCodes.ITEM_DOES_NOT_EXIST;
 import static com.inno.service.exception.ExceptionErrorCodes.ORDER_DOES_NOT_EXIST;
@@ -119,7 +120,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<OrderDtoResponse> findAllByUserIdAndDeletedFalse(Long userId, Pageable pageable) {
+    public Page<OrderDtoResponse> findAllByUserIdAndDeletedFalse(UUID userId, Pageable pageable) {
         LOGGER.info("Reading all orders for user with id {}", userId);
 
         return orderRepository.findAllByUserIdAndDeletedFalse(userId, pageable).map(this::toDto);
@@ -127,7 +128,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean isOwner(Long orderId, Long userId) {
+    public boolean isOwner(Long orderId, UUID userId) {
         return orderRepository.existsByIdAndUserIdAndDeletedFalse(
                 orderId, userId
         );

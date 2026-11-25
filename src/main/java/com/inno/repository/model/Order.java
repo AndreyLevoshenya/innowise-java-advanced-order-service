@@ -10,12 +10,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity<Long> {
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private UUID userId;
 
     @Column(name = "status", nullable = false)
     private String status;
@@ -33,7 +34,7 @@ public class Order extends BaseEntity<Long> {
     )
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    public Order(Long userId, String status, BigDecimal totalPrice, List<OrderItem> orderItems) {
+    public Order(UUID userId, String status, BigDecimal totalPrice, List<OrderItem> orderItems) {
         this.userId = userId;
         this.status = status;
         this.totalPrice = totalPrice;
@@ -58,11 +59,11 @@ public class Order extends BaseEntity<Long> {
         orderItems.clear();
     }
 
-    public Long getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

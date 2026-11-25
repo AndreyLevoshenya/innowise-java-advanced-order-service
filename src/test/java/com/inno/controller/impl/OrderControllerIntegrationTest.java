@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -42,7 +43,7 @@ class OrderControllerIntegrationTest extends AbstractIntegrationTest {
     private static final String BY_ID = ORDERS_V1_API_PATH + "/{id}";
     private static final String MY_ORDERS = ORDERS_V1_API_PATH + "/my";
 
-    private static final long TEST_USER_ID = 1L;
+    private static final UUID TEST_USER_ID = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
     private static final long NOT_EXISTING_ID = 999_999L;
 
     private static final String USER_SERVICE_RESPONSE = """
@@ -158,7 +159,7 @@ class OrderControllerIntegrationTest extends AbstractIntegrationTest {
     }
 
     private Map<String, Object> orderBody(
-            long userId,
+            UUID userId,
             long itemId,
             int quantity
     ) {
@@ -203,7 +204,7 @@ class OrderControllerIntegrationTest extends AbstractIntegrationTest {
                     .body("status", equalTo("NEW"))
                     .body("totalPrice", equalTo(20.00f))
                     .body("orderItems", hasSize(1))
-                    .body("user.id", equalTo((int) TEST_USER_ID))
+                    .body("user.id", equalTo(TEST_USER_ID))
                     .body("user.email", equalTo("ivan@example.com"))
                     .extract()
                     .jsonPath()
@@ -335,7 +336,7 @@ class OrderControllerIntegrationTest extends AbstractIntegrationTest {
                     .body("status", equalTo("NEW"))
                     .body("totalPrice", equalTo(20.00f))
                     .body("orderItems", hasSize(1))
-                    .body("user.id", equalTo((int) TEST_USER_ID))
+                    .body("user.id", equalTo(TEST_USER_ID))
                     .body("user.email", equalTo("ivan@example.com"));
         }
 
@@ -506,7 +507,7 @@ class OrderControllerIntegrationTest extends AbstractIntegrationTest {
                     .statusCode(200)
                     .body("totalElements", equalTo(2))
                     .body("content", hasSize(2))
-                    .body("content[0].user.id", equalTo((int) TEST_USER_ID));
+                    .body("content[0].user.id", equalTo(TEST_USER_ID));
         }
 
         @Test
@@ -569,7 +570,7 @@ class OrderControllerIntegrationTest extends AbstractIntegrationTest {
                     .body("id", equalTo((int) id))
                     .body("totalPrice", equalTo(45.00f))
                     .body("orderItems", hasSize(1))
-                    .body("user.id", equalTo((int) TEST_USER_ID));
+                    .body("user.id", equalTo(TEST_USER_ID));
 
             Order updated = orderRepository.findById(id).orElseThrow();
 

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.UUID;
+
 import static com.inno.service.exception.ExceptionErrorCodes.USER_SERVICE_UNAVAILABLE_EXCEPTION;
 
 @Service
@@ -34,7 +36,7 @@ public class UserServiceClient {
             name = "userService",
             fallbackMethod = "getUserByIdFallback"
     )
-    public UserDtoResponse getUserById(Long id) {
+    public UserDtoResponse getUserById(UUID id) {
         return userServiceRestClient.get()
                 .uri("/api/v1/users/{id}", id)
                 .retrieve()
@@ -52,7 +54,7 @@ public class UserServiceClient {
     }
 
     private UserDtoResponse getUserByIdFallback(
-            Long id,
+            UUID id,
             Throwable exception
     ) {
         throw new UserServiceUnavailableException(

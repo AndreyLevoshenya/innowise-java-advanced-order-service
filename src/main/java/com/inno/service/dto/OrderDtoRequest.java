@@ -6,11 +6,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.util.List;
+import java.util.UUID;
 
 public record OrderDtoRequest(
         @NotNull(message = "User ID is required")
         @Positive(message = "User ID must be positive")
-        Long userId,
+        UUID userId,
         @NotEmpty(message = "Order must contain at least one item")
         List<@Valid OrderItemDtoRequest> orderItems
 ) {

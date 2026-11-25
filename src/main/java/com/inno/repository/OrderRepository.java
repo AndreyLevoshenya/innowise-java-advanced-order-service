@@ -6,12 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.UUID;
+
 public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor<Order> {
 
     Page<Order> findAllByUserIdAndDeletedFalse(
-            Long userId,
+            UUID userId,
             Pageable pageable
     );
 
-    boolean existsByIdAndUserIdAndDeletedFalse(Long id, Long userId);
+    boolean existsByIdAndUserIdAndDeletedFalse(Long id, UUID userId);
 }
